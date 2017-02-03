@@ -51,8 +51,8 @@ Now that helm and kubernetes are ready, we can install Jenkins using the a helm 
 
     helm install stable/jenkins --set Agent.Memory=1024Mi,Persistence.StorageClass=standard --name=cd
 
-Now you can search for the port of the jenkins using:
+To open jenkins in your brower simply use minikube:
 
-    kubectl describe svc cd-jenkins |grep NodePort|grep http
+    minikube service cd-jenkins
 
-Pass the resulting port into your browser using the URL http://<minikube IP>:<Port>. The user to login is `admin` and the password can be found the command given by the output of `helm install ...` earlier.
+The user to login is `admin` and the password can be found the command given by the output of `helm install ...` earlier.
