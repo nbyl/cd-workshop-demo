@@ -48,13 +48,17 @@ When the server component tiller is ready, you can view a list of your (not yet 
     helm list
     
 ### Jenkins
+
+Before we can install jenkins, we have to make sure that local storage can be provisioned by minikube:
+
+    kubectl apply -f minikube/storageclass.yml
     
 Now that helm and kubernetes are ready, we can install Jenkins using the a helm command:
     
     helm install stable/jenkins --set Agent.Memory=1024Mi --name=cd
     
-Now you can search for the port of the jenkins using:
+To open jenkins in your brower simply use minikube:
     
-    kubectl describe svc cd-jenkins |grep NodePort|grep http
+    minikube service cd-jenkins
 
-Pass the resulting port into your browser using the URL http://<minikube IP>:<Port>. The user to login is `admin` and the password can be found the command given by the output of `helm install ...` earlier.
+The user to login is `admin` and the password can be found the command given by the output of `helm install ...` earlier.
