@@ -3,4 +3,8 @@ node {
         checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/nbyl/confy.git']]])
         sh './gradlew -Pprod build'
     }
+
+    stage('publish docker image') {
+        sh './gradlew publishImage'
+    }
 }
