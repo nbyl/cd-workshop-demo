@@ -62,3 +62,20 @@ To open jenkins in your brower simply use minikube:
     minikube service cd-jenkins
 
 The user to login is `admin` and the password can be found the command given by the output of `helm install ...` earlier.
+
+## Lab 2: Continuous Integration
+
+### Lab 2.1: Create your first build pipeline
+
+Create a new pipeline job for our project:
+
+* Click on "New Item" and enter the name of the project "confy"
+* As a type select "Pipeline" and click on "OK"
+* Configure the following job options:
+  * "Build Triggers" &rarr; "Poll SCM" &rarr; "* * * * *"
+  * "Pipeline" 
+    * "Definition": "Pipeline from SCM" 
+    * "SCM": "Git" 
+    * "Repository URL": "https://github.com/nbyl/cd-workshop-demo.git"
+
+Afterwards you can click on "Save" and "Build Now" to start your first pipeline run. Congratulations, your pipeline is setup now.
