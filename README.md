@@ -73,3 +73,28 @@ Create a new pipeline job for our project:
     * "Repository URL": "https://github.com/nbyl/cd-workshop-demo.git"
 
 Afterwards you can click on "Save" and "Build Now" to start your first pipeline run. Congratulations, your pipeline is setup now.
+
+### Lab 2.2: Cache your dependencies
+
+Everytime a build is now started, gradle will redownload all dependencies mentioned in the build.gradle. To save us some time, we will create a persistent volume to cache these.
+
+First create a persistent volume:
+
+  kubectl apply -f minikube/gradle-cache.yml
+  
+Now configure Jenkins to use it when spawning a new build pod:
+
+* "Manage Jenkins"
+* "Configure System"
+* Search for "Kubernetes Pod Template"
+  * "Add Volume" &rarr; "Persistent Volume Claim"
+    * "Claim Name": gradle-cache
+    * "Mount path": /home/jenkins/.gradle
+    
+Now restart the build. It will most likely fail, because minikubes hostPath provisioner will only allow root access to our filesystem. You can correct the rights using:
+     
+     minikube ssh 'sudo chmod -R 777 /tmp/hostpath_pv'
+     
+**Warning**: You should not do this on a production system.     
+
+Now run your build again twice. You should notice a speedup on the second run.
