@@ -98,3 +98,7 @@ Now restart the build. It will most likely fail, because minikubes hostPath prov
 **Warning**: You should not do this on a production system.     
 
 Now run your build again twice. You should notice a speedup on the second run.
+
+## Lab 3: Publish docker container
+ 
+After upgrading run the pipeline again. It will call another gradle task that builds a docker container. Publishing is currently disabled as we are on a minikube system and the image will always be present. But why don't you implement this as an exercise?
