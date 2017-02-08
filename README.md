@@ -100,5 +100,18 @@ Now restart the build. It will most likely fail, because minikubes hostPath prov
 Now run your build again twice. You should notice a speedup on the second run.
 
 ## Lab 3: Publish docker container
+
+First we need to enable the build pod to build docker images. Configure Jenkins to mount the corresponding socket:
+
+* "Manage Jenkins"
+* "Configure System"
+* Search for "Kubernetes Pod Template"
+  * Change "Docker Image" to "nbyl/jenkins-slave-docker-image-build:3.10-2"
+  * "Add Volume" &rarr; "Host Path Volume"
+    * "Host Path": /run/docker.sock
+    * "Mount path": /run/docker.sock
+  * "Add Volume" &rarr; "Host Path Volume"
+    * "Host Path": /var/run/docker.sock
+    * "Mount path": /var/run/docker.sock
  
-After upgrading run the pipeline again. It will call another gradle task that builds a docker container. Publishing is currently disabled as we are on a minikube system and the image will always be present. But why don't you implement this as an exercise?
+After saving run the pipeline again. It will call another gradle task that builds a docker container. Publishing is currently disabled as we are on a minikube system and the image will always be present. But why don't you implement this as an exercise?
