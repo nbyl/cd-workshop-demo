@@ -25,4 +25,5 @@ database:
   password:
 
 ingress:
+  enabled: false
   path: /confy
