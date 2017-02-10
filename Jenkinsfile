@@ -18,6 +18,14 @@ node {
 
         sh 'helm upgrade --install it-db helm/postgresql --namespace=integration-test --set persistence.enabled=false,postgresUser=confy,postgresPassword=confy01,postgresDatabase=confy'
         sh "helm upgrade --install it-confy helm/confy --namespace=integration-test --set database.driver=org.postgresql.Driver,database.url=jdbc:postgresql://it-db-postgresql/confy,database.username=confy,database.password=confy01,image.tag=${version}"
-        sh 'cd build && ./gradlew integrationTest -PintegrationTestBaseUrl=http://it-confy-confy.integration-test.svc.cluster.local'
+
+        try {
+            sh 'cd build && ./gradlew integrationTest -PintegrationTestBaseUrl=http://it-confy-confy.integration-test.svc.cluster.local'
+        } catch (err) {
+            echo "Caught: ${err}"
+            currentBuild.result = 'FAILURE'
+        } finally {
+            junit allowEmptyResults: true, testResults: 'build/build/test-results/*.xml'
+        }
     }
 }
