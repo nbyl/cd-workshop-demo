@@ -31,6 +31,6 @@ node {
 
     stage('user acceptance test') {
         sh 'helm upgrade --install uat-db helm/postgresql --namespace=uat --set persistence.enabled=true,persistence.storageClass=generic,postgresUser=confy,postgresPassword=confy01,postgresDatabase=confy'
-        sh "helm upgrade --install uat-confy helm/confy --namespace=uat --set database.driver=org.postgresql.Driver,database.url=jdbc:postgresql://it-db-postgresql/confy,database.username=confy,database.password=confy01,image.tag=${version},ingress.path=/confy-uat"
+        sh "helm upgrade --install uat-confy helm/confy --namespace=uat --set database.driver=org.postgresql.Driver,database.url=jdbc:postgresql://it-db-postgresql/confy,database.username=confy,database.password=confy01,ingress.enabled=true,ingress.path=/confy-uat,image.tag=${version}"
     }
 }
