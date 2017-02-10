@@ -20,7 +20,7 @@ node {
         sh "helm upgrade --install it-confy helm/confy --namespace=integration-test --set database.driver=org.postgresql.Driver,database.url=jdbc:postgresql://it-db-postgresql/confy,database.username=confy,database.password=confy01,image.tag=${version}"
 
         try {
-            sh 'cd build && ./gradlew integrationTest -PintegrationTestBaseUrl=http://it-confy-confy.integration-test.svc.cluster.local'
+            sh 'cd build && ./gradlew integrationTest -PintegrationTestBaseUrl=http://it-confy-confy.integration-test.svc.cluster.local/api/'
         } catch (err) {
             echo "Caught: ${err}"
             currentBuild.result = 'FAILURE'
