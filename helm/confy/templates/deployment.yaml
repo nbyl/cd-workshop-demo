@@ -30,8 +30,8 @@ spec:
           httpGet:
             path: /management/health
             port: {{ .Values.service.internalPort }}
-          initialDelaySeconds: 5
-          periodSeconds: 5
+          initialDelaySeconds: 20
+          periodSeconds: 30
         readinessProbe:
           httpGet:
             path: /management/health
