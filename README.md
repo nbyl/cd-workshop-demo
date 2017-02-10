@@ -115,3 +115,7 @@ First we need to enable the build pod to build docker images. Configure Jenkins 
     * "Mount path": /var/run/docker.sock
  
 After saving run the pipeline again. It will call another gradle task that builds a docker container. Publishing is currently disabled as we are on a minikube system and the image will always be present. But why don't you implement this as an exercise?
+
+## Lab 4: Integration Testing
+
+There is nothing to change for this lab. But to check out the helm chart, look at the `helm/confy` directory. The deployment is described here as a set of templates for the kubernetes resources. The application is installed using a deployment of the pod to run. The database for the application is configured using environment variables. The instances of the application are combined using a kubernetes service.
