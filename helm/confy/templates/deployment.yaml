@@ -17,6 +17,15 @@ spec:
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:
         - containerPort: {{ .Values.service.internalPort }}
+        env:
+        - name: SPRING_DATASOURCE_URL
+          value: {{ .Values.database.url }}
+        - name: SPRING_DATASOURCE_DRIVER
+          value: {{ .Values.database.driver }}
+        - name: SPRING_DATASOURCE_USERNAME
+          value: {{ .Values.database.username }}
+        - name: SPRING_DATASOURCE_PASSWORD
+          value: {{ .Values.database.password }}
         livenessProbe:
           httpGet:
             path: /management/health
