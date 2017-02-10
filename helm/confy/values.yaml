@@ -24,3 +24,5 @@ database:
   username: sa
   password:
 
+ingress:
+  path: /confy
