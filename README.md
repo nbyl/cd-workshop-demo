@@ -128,4 +128,8 @@ There is nothing to change for this lab. But to check out the helm chart, look a
 
 ## Lab 5: User Acceptance Testing
 
-There is nothing to change for this lab. If you look at the `helm/confy` chart, you will find an ingress resource to access the application. It will available after deployment at http://<minikube IP>/confuy-uat
+There is nothing to change for this lab. If you look at the `helm/confy` chart, you will find an ingress resource to access the application. It will available after deployment at http://<minikube IP>/confy-uat
+
+## Lab 6: Production Deployment
+
+There is nothing to change for this lab. After the confirmation the application will be available at http://<minikube IP>/confy
