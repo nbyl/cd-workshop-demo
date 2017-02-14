@@ -119,3 +119,7 @@ After saving run the pipeline again. It will call another gradle task that build
 ## Lab 4: Integration Testing
 
 There is nothing to change for this lab. But to check out the helm chart, look at the `helm/confy` directory. The deployment is described here as a set of templates for the kubernetes resources. The application is installed using a deployment of the pod to run. The database for the application is configured using environment variables. The instances of the application are combined using a kubernetes service.
+
+## Lab 5: User Acceptance Testing
+
+There is nothing to change for this lab. If you look at the `helm/confy` chart, you will find an ingress resource to access the application. It will available after deployment at http://<minikube IP>/confuy-uat
