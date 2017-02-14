@@ -6,7 +6,7 @@ metadata:
   labels:
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
   annotations:
-    traefik.frontend.rule.type: pathprefixstrip
+    ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
   - http:
