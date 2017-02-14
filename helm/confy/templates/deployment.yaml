@@ -26,17 +26,17 @@ spec:
           value: {{ .Values.database.username }}
         - name: SPRING_DATASOURCE_PASSWORD
           value: {{ .Values.database.password }}
-#        livenessProbe:
-#          httpGet:
-#            path: /management/health
-#            port: {{ .Values.service.internalPort }}
-#          initialDelaySeconds: 20
-#          periodSeconds: 30
-#        readinessProbe:
-#          httpGet:
-#            path: /management/health
-#            port: {{ .Values.service.internalPort }}
-#          initialDelaySeconds: 5
-#          periodSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /management/health
+            port: {{ .Values.service.internalPort }}
+          initialDelaySeconds: 20
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /management/health
+            port: {{ .Values.service.internalPort }}
+          initialDelaySeconds: 5
+          periodSeconds: 5
         resources:
 {{ toYaml .Values.resources | indent 12 }}
