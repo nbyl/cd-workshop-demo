@@ -26,6 +26,8 @@ node {
         stage('user acceptance test') {
             sh 'helm upgrade --install uat-db helm/postgresql --namespace=uat --set persistence.enabled=true,persistence.storageClass=standard,postgresUser=confy,postgresPassword=confy01,postgresDatabase=confy'
             sh "helm upgrade --install uat-confy helm/confy --namespace=uat --set database.driver=org.postgresql.Driver,database.url=jdbc:postgresql://uat-db-postgresql/confy,database.username=confy,database.password=confy01,ingress.enabled=true,ingress.path=/confy-uat,image.tag=${version}"
+
+            input 'Do you want to deploy this to production?'
         }
     } catch (err) {
         echo "Caught: ${err}"
