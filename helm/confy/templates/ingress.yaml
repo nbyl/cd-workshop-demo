@@ -5,6 +5,8 @@ metadata:
   name: {{ template "fullname" . }}
   labels:
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+  annotations:
+    traefik.frontend.rule.type: pathprefixstrip
 spec:
   rules:
   - http:
