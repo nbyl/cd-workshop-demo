@@ -29,6 +29,11 @@ node {
 
             input 'Do you want to deploy this to production?'
         }
+
+        stage('production') {
+            sh 'helm upgrade --install prod-db helm/postgresql --namespace=prod --set persistence.enabled=true,persistence.storageClass=generic,postgresUser=confy,postgresPassword=confy01,postgresDatabase=confy'
+            sh "helm upgrade --install uat-confy helm/confy --namespace=prod --set database.driver=org.postgresql.Driver,database.url=jdbc:postgresql://prod-db-postgresql/confy,database.username=confy,database.password=confy01,ingress.enabled=true,ingress.path=/confy,image.tag=${version}"
+        }
     } catch (err) {
         echo "Caught: ${err}"
         currentBuild.result = 'FAILURE'
