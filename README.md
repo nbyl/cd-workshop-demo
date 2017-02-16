@@ -86,7 +86,7 @@ Everytime a build is now started, gradle will redownload all dependencies mentio
 
 First create a persistent volume:
 
-  kubectl apply -f minikube/gradle-cache.yml
+  kubectl apply -f minikube/gradle-cache.yaml
   
 Now configure Jenkins to use it when spawning a new build pod:
 
