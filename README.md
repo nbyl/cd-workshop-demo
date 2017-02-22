@@ -104,3 +104,32 @@ Now restart the build. It will most likely fail, because minikubes hostPath prov
 **Warning**: You should not do this on a production system.     
 
 Now run your build again twice. You should notice a speedup on the second run.
+
+## Lab 3: Publish docker container
+
+First we need to enable the build pod to build docker images. Configure Jenkins to mount the corresponding socket:
+
+* "Manage Jenkins"
+* "Configure System"
+* Search for "Kubernetes Pod Template"
+  * Change "Docker Image" to "nbyl/jenkins-slave-docker-image-build:2.52.2"
+  * "Add Volume" &rarr; "Host Path Volume"
+    * "Host Path": /run/docker.sock
+    * "Mount path": /run/docker.sock
+  * "Add Volume" &rarr; "Host Path Volume"
+    * "Host Path": /var/run/docker.sock
+    * "Mount path": /var/run/docker.sock
+ 
+After saving run the pipeline again. It will call another gradle task that builds a docker container. Publishing is currently disabled as we are on a minikube system and the image will always be present. But why don't you implement this as an exercise?
+
+## Lab 4: Integration Testing
+
+There is nothing to change for this lab. But to check out the helm chart, look at the `helm/confy` directory. The deployment is described here as a set of templates for the kubernetes resources. The application is installed using a deployment of the pod to run. The database for the application is configured using environment variables. The instances of the application are combined using a kubernetes service.
+
+## Lab 5: User Acceptance Testing
+
+There is nothing to change for this lab. If you look at the `helm/confy` chart, you will find an ingress resource to access the application. It will available after deployment at http://<minikube IP>/confy-uat
+
+## Lab 6: Production Deployment
+
+There is nothing to change for this lab. After the confirmation the application will be available at http://<minikube IP>/confy

@@ -1,0 +1,42 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "fullname" . }}
+  labels:
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+spec:
+  replicas: {{ .Values.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "fullname" . }}
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - containerPort: {{ .Values.service.internalPort }}
+        env:
+        - name: SPRING_DATASOURCE_URL
+          value: {{ .Values.database.url }}
+        - name: SPRING_DATASOURCE_DRIVER
+          value: {{ .Values.database.driver }}
+        - name: SPRING_DATASOURCE_USERNAME
+          value: {{ .Values.database.username }}
+        - name: SPRING_DATASOURCE_PASSWORD
+          value: {{ .Values.database.password }}
+        livenessProbe:
+          httpGet:
+            path: /management/health
+            port: {{ .Values.service.internalPort }}
+          initialDelaySeconds: 20
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /management/health
+            port: {{ .Values.service.internalPort }}
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        resources:
+{{ toYaml .Values.resources | indent 12 }}
